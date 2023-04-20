@@ -7,7 +7,6 @@ const SearchBar: FC = () => {
   const router = useRouter();
   const [location, setLocation] = useState("");
   return (
-    <div>
       <div className="text-left text-lg py-3 m-auto flex justify-center">
         <input
           className="rounded  mr-3 p-2 w-[450px]"
@@ -26,7 +25,6 @@ const SearchBar: FC = () => {
           Let's go
         </button>
       </div>
-    </div>
   );
 };
 

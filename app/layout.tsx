@@ -14,8 +14,12 @@ export default function RootLayout({
       */}
       <head />
       <body>
-        <Navbar />
-        {children}
+        <main className="bg-gray-100 min-h-screen w-full">
+          <main className="max-w-screen-2xl m-auto bg-white">
+            <Navbar />
+            {children}
+          </main>
+        </main>
       </body>
     </html>
   );
