@@ -1,9 +1,12 @@
 import React, { FC } from "react";
 import RestaurantCard from "./RestaurantCard";
 
-type Props = {};
+type Props = {
 
-const RestaurantCards: FC = () => {
+};
+
+const RestaurantCards: FC<any> = ({restaurants}) => {
+  console.log(restaurants)
   return (
     <div>
       <div className="py-3 px-36 mt-10 flex flex-wrap justify-center">
