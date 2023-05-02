@@ -1,4 +1,4 @@
-import { NextPage } from "next";
+import { fetchRestaurantBySlug } from "../../../prisma/PrismaClient";
 import { ContextType } from "../../interfaces/PageTypes";
 import Description from "./components/Description";
 import Images from "./components/Images";
@@ -8,15 +8,16 @@ import RestaurantNavbar from "./components/RestaurantNavbar";
 import Reviews from "./components/Reviews";
 import Title from "./components/Title";
 
-const RestaurantDetails: NextPage<ContextType> = (context) => {
+const RestaurantDetails = async (context: ContextType) => {
+  const restaurant = await fetchRestaurantBySlug(context.params.slug);
   return (
     <>
       <div className="bg-white w-[70%] rounded p-3 shadow">
-        <RestaurantNavbar />
-        <Title />
+        <RestaurantNavbar slug={restaurant.slug} />
+        <Title name={restaurant.name} />
         <Rating />
-        <Description />
-        <Images />
+        <Description description={restaurant.description} />
+        <Images name={restaurant.name} images={restaurant.images} />
         <Reviews />
       </div>
       <div className="w-[27%] relative text-reg">

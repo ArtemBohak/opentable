@@ -1,35 +1,23 @@
+import Image from "next/image";
 import { FC } from "react";
 
-const Images: FC = () => {
+type Props = {
+  images: string[];
+  name: string;
+};
+
+const Images: FC<Props> = ({ images, name }) => {
   return (
     <div>
-      <h1 className="font-bold text-3xl mt-10 mb-7 border-b pb-5">5 photos</h1>
+      <h1 className="font-bold text-3xl mt-10 mb-7 border-b pb-5">
+        {images.length === 1 ? "1 photo" : `${images.length} photos`}
+      </h1>
       <div className="flex flex-wrap">
-        <img
-          className="w-56 h-44 mr-1 mb-1"
-          src="https://resizer.otstatic.com/v2/photos/xlarge/3/41701449.jpg"
-          alt=""
-        />
-        <img
-          className="w-56 h-44 mr-1 mb-1"
-          src="https://resizer.otstatic.com/v2/photos/xlarge/2/41701450.jpg"
-          alt=""
-        />
-        <img
-          className="w-56 h-44 mr-1 mb-1"
-          src="https://resizer.otstatic.com/v2/photos/xlarge/2/41701452.jpg"
-          alt=""
-        />
-        <img
-          className="w-56 h-44 mr-1 mb-1"
-          src="https://resizer.otstatic.com/v2/photos/xlarge/2/41701453.jpg"
-          alt=""
-        />
-        <img
-          className="w-56 h-44 mr-1 mb-1"
-          src="https://resizer.otstatic.com/v2/photos/xlarge/2/41701454.jpg"
-          alt=""
-        />
+        {images.map((item, index) => (
+          <div key={index} className="relative w-56 h-44 mr-1 mb-1">
+            <Image fill src={item} alt={`${name}_${index + 1}`} />
+          </div>
+        ))}
       </div>
     </div>
   );
