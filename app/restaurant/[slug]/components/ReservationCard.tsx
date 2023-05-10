@@ -2,11 +2,13 @@
 
 import { FC } from "react";
 import { useRouter } from "next/navigation";
-import { ContextType } from "../../../interfaces/PageTypes";
 
-const ReservationCard: FC<ContextType> = ({ params }) => {
+type Props = {
+  params: { slug: string };
+};
+
+const ReservationCard: FC<Props> = ({ params }) => {
   const router = useRouter();
-  console.log(params);
 
   return (
     <div className="fixed w-[15%] bg-white rounded p-3 shadow">

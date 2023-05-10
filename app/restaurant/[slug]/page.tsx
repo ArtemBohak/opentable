@@ -8,7 +8,11 @@ import RestaurantNavbar from "./components/RestaurantNavbar";
 import Reviews from "./components/Reviews";
 import Title from "./components/Title";
 
-const RestaurantDetails = async (context: ContextType) => {
+interface Props extends ContextType {
+  params: { slug: string };
+}
+
+const RestaurantDetails = async (context: Props) => {
   const restaurant = await fetchRestaurantBySlug(context.params.slug);
   return (
     <>

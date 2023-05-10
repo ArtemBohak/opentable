@@ -1,7 +1,8 @@
 import { Location, Cuisine, PRICE, Item } from "@prisma/client";
 
 export interface ContextType {
-  params: { [prop: string]: string; slug: string };
+  params: { [prop: string]: string };
+  searchParams: { [prop: string]: string };
 }
 
 export interface RestaurantCardType {

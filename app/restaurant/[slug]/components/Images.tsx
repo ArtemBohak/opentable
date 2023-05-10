@@ -15,7 +15,16 @@ const Images: FC<Props> = ({ images, name }) => {
       <div className="flex flex-wrap">
         {images.map((item, index) => (
           <div key={index} className="relative w-56 h-44 mr-1 mb-1">
-            <Image fill src={item} alt={`${name}_${index + 1}`} />
+            <Image
+              fill
+              src={item}
+              alt={`${name}_${index + 1}`}
+              sizes="(max-width: 768px) 60vw,
+            (max-width: 1280px) 80vw,
+            100vw"
+              className="object-cover"
+              // quality={40}
+            />
           </div>
         ))}
       </div>

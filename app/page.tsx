@@ -1,13 +1,15 @@
 import Header from "./HomePageComponents/Header/Header";
 import RestaurantCards from "./HomePageComponents/RestaurantCards/RestaurantCards";
-import { fetchRestaurants } from "../prisma/PrismaClient";
+import { Suspense } from "react";
+import RestaurantCardsLoader from "./HomePageComponents/RestaurantCards/Loaders/RestaurantCardsLoader";
 
 const Home = async () => {
-  const restaurants = await fetchRestaurants();
   return (
     <>
       <Header />
-      <RestaurantCards restaurants={restaurants} />
+      <Suspense fallback={<RestaurantCardsLoader />}>
+        <RestaurantCards />
+      </Suspense>
     </>
   );
 };
