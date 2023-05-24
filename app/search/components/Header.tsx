@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import SearchBar from "../../HomePageComponents/Header/SearchBar";
+import SearchBar from "app/HomePageComponents/Header/SearchBar";
 
 
 const Header: FC = () => {

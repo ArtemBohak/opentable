@@ -2,16 +2,15 @@ import SideSearchBar from "./components/SideSearchBar";
 import Header from "./components/Header";
 import RestaurantCardList from "./components/RestaurantCardList";
 import {
-  fetchRestaurantsByLocation,
+  fetchRestaurantsByParams,
   fetchCuisines,
   fetchLocations,
-  fetchRestaurantsByCuisine,
-} from "../../prisma/PrismaClient";
-import { ContextType } from "../interfaces/PageTypes";
+} from "@/prisma/PrismaClient";
+import { ContextType } from "app/interfaces/PageTypes";
 import { PRICE } from "@prisma/client";
 
 interface PageProps extends ContextType {
-  searchParams: { city: string; cuisine?: string; price?: PRICE };
+  searchParams: { city?: string; cuisine?: string; price?: PRICE };
 }
 
 const Search = async ({ searchParams }: PageProps) => {
@@ -19,12 +18,24 @@ const Search = async ({ searchParams }: PageProps) => {
   const cuisine = searchParams.cuisine;
   const price = searchParams.price;
 
-  const searchDryParams = { city: city, cuisine: cuisine, price: price };
+  const searchDryParams: any = {
+    city: city,
+    cuisine: cuisine,
+    price: price,
+  };
 
-  if (city) {
-    const restaurants = await fetchRestaurantsByLocation(city);
-    const locations = await fetchLocations();
-    const cuisines = await fetchCuisines();
+  if (searchDryParams.length !== 0) {
+    const locationsPromise = fetchLocations();
+    const cuisinesPromise = fetchCuisines();
+    const restaurantsPromise = fetchRestaurantsByParams(searchDryParams);
+    const [locations, cuisines, restaurants] = await Promise.all([
+      locationsPromise,
+      cuisinesPromise,
+      restaurantsPromise,
+    ]);
+    if (restaurants.length === 0) {
+      searchDryParams.city = undefined;
+    }
 
     return (
       <>
@@ -50,34 +61,28 @@ const Search = async ({ searchParams }: PageProps) => {
         )}
       </>
     );
-  } else if (cuisine) {
-    const restaurants = await fetchRestaurantsByCuisine(cuisine);
-    const locations = await fetchLocations();
-    const cuisines = await fetchCuisines();
+  } else {
+    const locationsPromise = fetchLocations();
+    const cuisinesPromise = fetchCuisines();
+    const restaurantsPromise = fetchRestaurantsByParams(searchDryParams);
+    const [locations, cuisines, restaurants] = await Promise.all([
+      locationsPromise,
+      cuisinesPromise,
+      restaurantsPromise,
+    ]);
+    if (restaurants.length === 0) {
+      searchDryParams.city = undefined;
+    }
 
     return (
-      <>
-        <Header />
-        {restaurants.length !== 0 ? (
-          <div className="flex py-4 m-auto w-3/4 justify-between items-start">
-            <SideSearchBar
-              searchParams={searchDryParams}
-              locations={locations}
-              cuisines={cuisines}
-            />
-            <RestaurantCardList restaurants={restaurants} />
-          </div>
-        ) : (
-          <div className="flex py-4 m-auto w-3/4 items-start">
-            <SideSearchBar
-              searchParams={searchDryParams}
-              locations={locations}
-              cuisines={cuisines}
-            />
-            <h2 className="text-lg mx-auto">No restaurants found</h2>
-          </div>
-        )}
-      </>
+      <div className="flex py-4 m-auto w-3/4 items-start">
+        <SideSearchBar
+          searchParams={searchDryParams}
+          locations={locations}
+          cuisines={cuisines}
+        />
+        <h2 className="text-lg mx-auto">No restaurants found</h2>
+      </div>
     );
   }
 };

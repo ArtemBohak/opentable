@@ -1,8 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { FC } from "react";
-import { RestaurantCardType } from "../../interfaces/PageTypes";
-import Price from "../components/Price";
+import Stars from "@/components/Stars";
+import { RestaurantCardType } from "app/interfaces/PageTypes";
+import Price from "app/HomePageComponents/components/Price";
 
 type Props = {
   restaurant: RestaurantCardType;
@@ -27,8 +28,14 @@ const RestaurantCard: FC<Props> = ({ restaurant }) => {
         <div className="p-1">
           <h3 className="font-bold text-2xl mb-2">{restaurant.name}</h3>
           <div className="flex items-start">
-            <div className="flex mb-2">*****</div>
-            <p className="ml-2">77 reviews</p>
+            <div className="relative top-1.5">
+              <Stars reviews={restaurant.reviews} />
+            </div>
+            <p className="ml-2">
+              {restaurant.reviews.length === 1
+                ? `${restaurant.reviews.length} review`
+                : `${restaurant.reviews.length} reviews`}
+            </p>
           </div>
           <div className="flex text-reg font-light capitalize">
             <p className=" mr-3">{restaurant.cuisine.name}</p>

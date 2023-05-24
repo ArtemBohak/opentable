@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { RestaurantCardType } from "../../interfaces/PageTypes";
+import { RestaurantCardType } from "app/interfaces/PageTypes";
 import RestaurantCard from "./RestaurantCard";
 
 type Props = {

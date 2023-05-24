@@ -1,14 +1,32 @@
 import { Cuisine, Location, PRICE } from "@prisma/client";
 import Link from "next/link";
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 
 type Props = {
   locations: Location[];
   cuisines: Cuisine[];
-  searchParams: { city: string; cuisine?: string; price?: PRICE };
+  searchParams: { city?: string; cuisine?: string; price?: PRICE };
 };
 
 const SideSearchBar: FC<Props> = ({ locations, cuisines, searchParams }) => {
+  const prices = [
+    {
+      price: PRICE.CHEAP,
+      label: "$",
+      className: "border text-reg font-light rounded-l px-3 py-1",
+    },
+    {
+      price: PRICE.REGULAR,
+      label: "$$",
+      className: "border text-reg font-light px-2.5 py-1",
+    },
+    {
+      price: PRICE.EXPENSIVE,
+      label: "$$$",
+      className: "border text-reg rounded-r font-light px-2 py-1",
+    },
+  ];
+
   return (
     <div>
       <div className="hi w-full">
@@ -19,12 +37,18 @@ const SideSearchBar: FC<Props> = ({ locations, cuisines, searchParams }) => {
               key={location.id}
               className={
                 location.name === searchParams.city
-                  ? "capitalize font-semibold text-red-400 text-reg"
-                  : "capitalize font-light text-reg"
+                  ? "capitalize font-semibold text-red-400 text-reg hover:text-red-400"
+                  : "capitalize font-light text-reg hover:text-red-400"
               }
               href={{
                 pathname: "/search",
-                query: { ...searchParams, city: location.name },
+                query:
+                  searchParams.city === location.name
+                    ? {
+                        cuisine: searchParams?.cuisine,
+                        price: searchParams?.price,
+                      }
+                    : { ...searchParams, city: location.name },
               }}
             >
               {location.name}
@@ -38,12 +62,15 @@ const SideSearchBar: FC<Props> = ({ locations, cuisines, searchParams }) => {
               key={cuisine.id}
               className={
                 cuisine.name === searchParams.cuisine
-                  ? "capitalize font-semibold text-red-400 text-reg"
-                  : "capitalize font-light text-reg"
+                  ? "capitalize font-semibold text-red-400 text-reg hover:text-red-400"
+                  : "capitalize font-light text-reg hover:text-red-400"
               }
               href={{
                 pathname: "/search",
-                query: { ...searchParams, cuisine: cuisine.name },
+                query:
+                  searchParams.cuisine === cuisine.name
+                    ? { city: searchParams?.city, price: searchParams?.price }
+                    : { ...searchParams, cuisine: cuisine.name },
               }}
             >
               {cuisine.name}
@@ -53,33 +80,24 @@ const SideSearchBar: FC<Props> = ({ locations, cuisines, searchParams }) => {
         <div className="mt-3 pb-4">
           <h1 className="mb-2 font-semibold">Price</h1>
           <div className="flex w-full">
-            <Link
-              href={{
-                pathname: "/search",
-                query: { ...searchParams, price: searchParams.price },
-              }}
-              className="border text-reg font-light rounded-l px-3 py-1"
-            >
-              $
-            </Link>
-            <Link
-              href={{
-                pathname: "/search",
-                query: { ...searchParams, price: searchParams.price },
-              }}
-              className="border-r border-t border-b text-reg font-light px-3 py-1"
-            >
-              $$
-            </Link>
-            <Link
-              href={{
-                pathname: "/search",
-                query: { ...searchParams, price: searchParams.price },
-              }}
-              className="border-r border-t border-b text-reg font-light px-3 py-1 rounded-r"
-            >
-              $$$
-            </Link>
+            {prices.map((price) => (
+              <Link
+                key={price.price}
+                href={{
+                  pathname: "/search",
+                  query:
+                    searchParams.price === price.price
+                      ? {
+                          city: searchParams?.city,
+                          cuisine: searchParams?.cuisine,
+                        }
+                      : { ...searchParams, price: price.price },
+                }}
+                className={price.className}
+              >
+                {price.label}
+              </Link>
+            ))}
           </div>
         </div>
       </div>

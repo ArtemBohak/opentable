@@ -1,6 +1,6 @@
 import RestaurantNavbar from "../components/RestaurantNavbar";
 import MenuList from "./components/MenuList";
-import { fetchMenuItems } from "../../../../prisma/PrismaClient";
+import { fetchMenuItems } from "@/prisma/PrismaClient";
 
 type Props = {
   params: { slug: string };

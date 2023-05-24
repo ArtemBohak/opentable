@@ -1,8 +1,14 @@
-import { Location, Cuisine, PRICE, Item } from "@prisma/client";
+import { Location, Cuisine, PRICE, Review } from "@prisma/client";
 
 export interface ContextType {
   params: { [prop: string]: string };
   searchParams: { [prop: string]: string };
+}
+
+export interface NavbarSearchParams {
+  city?: string;
+  cuisine?: string;
+  price?: PRICE;
 }
 
 export interface RestaurantCardType {
@@ -13,6 +19,7 @@ export interface RestaurantCardType {
   location: Location;
   price: PRICE;
   slug: string;
+  reviews: Review[];
 }
 
 export interface RestaurantByIdType {
@@ -21,4 +28,5 @@ export interface RestaurantByIdType {
   images: string[];
   description: string;
   slug: string;
+  reviews: Review[];
 }
