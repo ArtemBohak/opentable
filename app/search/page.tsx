@@ -8,6 +8,9 @@ import {
 } from "@/prisma/PrismaClient";
 import { ContextType } from "app/interfaces/PageTypes";
 import { PRICE } from "@prisma/client";
+import HeaderLoader from "./loaders/HeaderLoader";
+import SideSearchBarLoader from "./loaders/SideSearchBarLoader";
+import RestaurantCardListLoader from "./loaders/RestaurantCardListLoader";
 
 interface PageProps extends ContextType {
   searchParams: { city?: string; cuisine?: string; price?: PRICE };

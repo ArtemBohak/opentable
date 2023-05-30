@@ -18,9 +18,7 @@ const RestaurantCardLoader: FC<Props> = ({
         animationDuration: animationDuration,
       }}
     >
-      <div className="bg-gray-300 relative w-full h-36">
-        <ImageSvg />
-      </div>
+      <ImageSvg />
       <div className="p-1">
         <div className="bg-gray-300 my-1 w-5/6 h-5 rounded" />
         <div className="flex flex-col items-start">

@@ -3,8 +3,6 @@ import {
   PrismaClient,
   Location,
   Cuisine,
-  Restaurant,
-  PRICE,
 } from "@prisma/client";
 import {
   NavbarSearchParams,
