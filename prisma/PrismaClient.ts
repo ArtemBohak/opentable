@@ -1,9 +1,5 @@
-import {
-  Item,
-  PrismaClient,
-  Location,
-  Cuisine,
-} from "@prisma/client";
+import { Item, PrismaClient, Location, Cuisine } from "@prisma/client";
+import { notFound } from "next/navigation";
 import {
   NavbarSearchParams,
   RestaurantByIdType,
@@ -62,7 +58,7 @@ const fetchRestaurantBySlug = async (
   });
 
   if (!restaurant) {
-    throw new Error();
+    notFound();
   }
 
   return restaurant;
@@ -80,7 +76,7 @@ const fetchMenuItems = async (slug: string): Promise<Item[]> => {
   });
 
   if (!restaurant) {
-    throw new Error();
+    notFound();
   }
 
   return restaurant.items;
