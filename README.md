@@ -52,7 +52,6 @@ To run the OpenTable Demo locally, follow these steps:
 
     ```bash
 
-    cd client
     npm install
     ```
 
