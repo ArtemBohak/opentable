@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { FC } from "react";
+import AuthModal from "./AuthModal";
 
 export const Navbar: FC = () => {
   return (
@@ -9,10 +10,8 @@ export const Navbar: FC = () => {
       </Link>
       <div>
         <div className="flex">
-          <button className="bg-blue-400 text-white border p-1 px-4 rounded mr-3">
-            Sign in
-          </button>
-          <button className="border p-1 px-4 rounded">Sign up</button>
+          <AuthModal isSignin={true} />
+          <AuthModal isSignin={false} />
         </div>
       </div>
     </nav>

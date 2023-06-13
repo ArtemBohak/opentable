@@ -12,13 +12,15 @@ const RestaurantCardLoader: FC<Props> = ({
 }) => {
   return (
     <div
-      className="w-64 h-72 m-3 rounded overflow-hidden border animate-pulse"
+      className="w-64 h-72 m-3 rounded border animate-pulse"
       style={{
         animationDelay: animationDelay,
         animationDuration: animationDuration,
       }}
     >
-      <ImageSvg />
+      <div className="overflow-hidden h-36">
+        <ImageSvg x={-512} y={-200} />
+      </div>
       <div className="p-1">
         <div className="bg-gray-300 my-1 w-5/6 h-5 rounded" />
         <div className="flex flex-col items-start">
