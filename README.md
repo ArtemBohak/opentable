@@ -27,7 +27,7 @@ Demo
 ----
 
 As mentioned earlier, the OpenTable Demo project is not currently hosted online. However, you can follow the instructions below to run it locally on your machine.
-Here is the small [video]() presenting the functionality
+Here is the small [video](https://drive.google.com/drive/folders/1HhFi_W7OcSgl3VkXB4chr34pwtIuhsbw?usp=sharing) presenting the functionality
 
 Getting Started
 ---------------
