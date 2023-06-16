@@ -56,8 +56,8 @@ To run the OpenTable Demo locally, follow these steps:
     ```
 
 4.  Set up the database using Prisma:
-    -   Create a `.env` file in the `server` directory and provide your database connection URL. You can use the `.env.example` file as a template.
-        DATABASE_URL should be a [connecting url](https://www.prisma.io/docs/concepts/database-connectors/postgresql) to your postgresql database. JWT_SECRET should be a random string.
+    -   Create a `.env` file in the root directory and provide your database connection URL. You can use the `.env.example` file as a template.
+        DATABASE_URL should be a [connecting url](https://www.prisma.io/docs/concepts/database-connectors/postgresql) to your postgresql database. JWT_SECRET should be any random string.
         
         ```.env.example
         DATABASE_URL="(postgresql://USER:PASSWORD@HOST:PORT/DATABASE)?schema=public"
