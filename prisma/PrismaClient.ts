@@ -1,4 +1,11 @@
-import { Item, PrismaClient, Location, Cuisine, Prisma } from "@prisma/client";
+import {
+  Item,
+  PrismaClient,
+  Location,
+  Cuisine,
+  Prisma,
+  User,
+} from "@prisma/client";
 import { notFound } from "next/navigation";
 import {
   NavbarSearchParams,
@@ -138,11 +145,19 @@ const fetchRestaurantsByCuisine = async (
 };
 export { fetchRestaurantsByCuisine };
 
-const fetchUserByEmail = async (email: string) => {
+const fetchUserByEmail = async (
+  email: string,
+  select: Prisma.UserSelect | { id: true; email: true; password: true } = {
+    id: true,
+    email: true,
+    password: true,
+  }
+) => {
   return await prisma.user.findUnique({
     where: {
       email: email,
     },
+    select: select,
   });
 };
 export { fetchUserByEmail };
